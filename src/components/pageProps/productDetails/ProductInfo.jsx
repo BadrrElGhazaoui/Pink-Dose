@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FiArrowUpRight, FiShoppingBag, FiStar } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { useOrebiStore } from "../../../store/useOrebiStore";
-import { formatMad } from "../../../utils/currency";
+import { formatEuro, formatMad } from "../../../utils/currency";
 
 const ProductInfo = ({ productInfo }) => {
   const addToCart = useOrebiStore((state) => state.addToCart);
@@ -37,6 +37,12 @@ const ProductInfo = ({ productInfo }) => {
       <p className="mt-5 text-2xl font-medium text-[#302326]">
         {formatMad(productInfo.price)}
       </p>
+      {productInfo.sourcePriceEur && (
+        <p className="mt-1 text-xs text-[#786b6b]">
+          Indicative MAD price · Sephora France{" "}
+          {formatEuro(productInfo.sourcePriceEur)}
+        </p>
+      )}
       <p className="mt-6 max-w-lg border-t border-[#eee5e2] pt-5 text-sm leading-7 text-[#786b6b]">
         {productInfo.des}
       </p>
@@ -60,6 +66,16 @@ const ProductInfo = ({ productInfo }) => {
         <FiShoppingBag />
         Add to your bag
       </button>
+      {productInfo.sourceUrl && (
+        <a
+          href={productInfo.sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-[#786b6b] underline underline-offset-4 transition-colors hover:text-[#a76e79]"
+        >
+          View product on Sephora France <FiArrowUpRight />
+        </a>
+      )}
       <p className="mt-4 text-xs leading-5 text-[#897d7b]">
         Need a little help?{" "}
         <Link to="/contact" className="underline underline-offset-2 hover:text-[#a76e79]">

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiArrowUpRight, FiShoppingBag } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { useOrebiStore } from "../../../store/useOrebiStore";
-import { formatMad } from "../../../utils/currency";
+import { formatEuro, formatMad } from "../../../utils/currency";
 
 const Product = (props) => {
   const addToCart = useOrebiStore((state) => state.addToCart);
@@ -65,6 +65,11 @@ const Product = (props) => {
             >
               {props.productName}
             </Link>
+            {props.sourcePriceEur && (
+              <p className="mt-1 text-[0.6rem] text-[#887a79]">
+                Sephora France: {formatEuro(props.sourcePriceEur)}
+              </p>
+            )}
           </div>
           <span className="shrink-0 pt-3 text-xs font-semibold text-[#302326]">
             {formatMad(props.price)}

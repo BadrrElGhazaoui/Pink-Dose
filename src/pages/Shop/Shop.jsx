@@ -67,7 +67,9 @@ const Shop = () => {
     <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
       <Breadcrumbs title="The beauty edit" />
       <p className="mb-8 max-w-2xl text-sm leading-6 text-[#786b6b]">
-        Discover authentic Sephora beauty, brought from France to Morocco.
+        Explore Sephora France's makeup, fragrance, face care, body and bath,
+        and haircare categories. MAD prices are indicative conversions from
+        current French prices and may vary.
       </p>
 
       {/* Main Shop Container */}

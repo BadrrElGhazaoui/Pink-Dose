@@ -15,8 +15,8 @@ const Home = () => (
     <section className="mx-auto max-w-[1440px] px-4 pb-14 pt-12 sm:px-6 lg:px-10 lg:pb-20 lg:pt-16">
       <div className="mb-7 flex items-end justify-between gap-4">
         <div>
-          <p className="pink-dose-kicker mb-3">Find your feeling</p>
-          <h2 className="pink-dose-section-heading">A beauty moment for every you</h2>
+          <p className="pink-dose-kicker mb-3">Explore Sephora France</p>
+          <h2 className="pink-dose-section-heading">Shop by beauty category</h2>
         </div>
         <Link to="/shop" className="pink-dose-section-link hidden sm:inline-flex">
           Explore the edit
@@ -56,10 +56,10 @@ const Home = () => (
       <div className="mb-7 flex items-end justify-between gap-4">
         <div>
           <p className="pink-dose-kicker mb-3">A little pink dose</p>
-          <h2 className="pink-dose-section-heading">Beauty worth discovering</h2>
+          <h2 className="pink-dose-section-heading">Sephora France favourites</h2>
           <p className="mt-2 max-w-lg text-sm leading-6 text-[#786b6b]">
-            Thoughtful finds for your everyday routine, picked with a little
-            extra love.
+            Real products from Sephora France. MAD prices are indicative
+            conversions and may vary.
           </p>
         </div>
         <Link to="/shop" className="pink-dose-section-link hidden sm:inline-flex">

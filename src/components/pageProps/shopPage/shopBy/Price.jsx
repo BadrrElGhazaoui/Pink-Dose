@@ -7,6 +7,7 @@ const Price = ({ selectedPrice, onSelectPrice }) => {
     { _id: 951, priceOne: 300, priceTwo: 399 },
     { _id: 952, priceOne: 400, priceTwo: 599 },
     { _id: 953, priceOne: 600, priceTwo: 1200 },
+    { _id: 954, priceOne: 1201, priceTwo: 10000 },
   ];
 
   return (
