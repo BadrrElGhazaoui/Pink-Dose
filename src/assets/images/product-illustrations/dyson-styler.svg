@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750">
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#e9e3e3"/><stop offset="1" stop-color="#d5c9ca"/></linearGradient>
+    <linearGradient id="metal" x2="1" y2=".2"><stop stop-color="#ae7071"/><stop offset=".45" stop-color="#f4d0c5"/><stop offset="1" stop-color="#9f626a"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="17"/></filter>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <circle cx="104" cy="168" r="94" fill="#fff" opacity=".24"/>
+  <ellipse cx="302" cy="602" rx="137" ry="22" fill="#403337" opacity=".2" filter="url(#shadow)"/>
+  <g transform="rotate(10 300 370)">
+    <rect x="267" y="219" width="72" height="302" rx="35" fill="#353137"/>
+    <rect x="278" y="235" width="50" height="269" rx="23" fill="url(#metal)"/>
+    <rect x="282" y="462" width="42" height="128" rx="17" fill="#28252b"/>
+    <path d="M300 226v267" stroke="#fff0e8" stroke-width="7" opacity=".55"/>
+    <path d="M304 226c-46-47-70-106-30-144 38-37 91-1 67 42-11 20-30 30-45 32M310 222c52-41 67-99 31-134-31-30-76-9-67 22 5 17 20 24 36 25" fill="none" stroke="#a76b6d" stroke-width="20" stroke-linecap="round"/>
+    <path d="M306 219c-42-42-58-87-29-111 24-20 53-4 43 15" fill="none" stroke="#f1c8bd" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="302" cy="388" r="7" fill="#e8c4ba"/>
+    <path d="M280 501h47" stroke="#686067" stroke-width="4"/>
+  </g>
+  <text x="300" y="644" fill="#51454a" font-family="Georgia,serif" font-size="25" text-anchor="middle" letter-spacing="4">MULTI-STYLER</text>
+  <text x="300" y="681" fill="#847579" font-family="Arial,sans-serif" font-size="14" text-anchor="middle" letter-spacing="4">ILLUSTRATIVE PACK SHOT</text>
+</svg>

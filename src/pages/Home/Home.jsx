@@ -58,8 +58,9 @@ const Home = () => (
           <p className="pink-dose-kicker mb-3">A little pink dose</p>
           <h2 className="pink-dose-section-heading">Sephora France favourites</h2>
           <p className="mt-2 max-w-lg text-sm leading-6 text-[#786b6b]">
-            Real products from Sephora France. MAD prices are indicative
-            conversions and may vary.
+            Real products from Sephora France, shown with original illustrative
+            artwork (not official product photos). MAD prices use an
+            approximate 10.8 MAD per euro conversion.
           </p>
         </div>
         <Link to="/shop" className="pink-dose-section-link hidden sm:inline-flex">

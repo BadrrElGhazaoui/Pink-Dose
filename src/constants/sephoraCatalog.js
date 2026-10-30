@@ -1,8 +1,17 @@
+import diorEyeshadow from "../assets/images/product-illustrations/dior-eyeshadow.svg";
+import dysonStyler from "../assets/images/product-illustrations/dyson-styler.svg";
+import rhodeSet from "../assets/images/product-illustrations/rhode-set.svg";
+import yslFragrance from "../assets/images/product-illustrations/ysl-fragrance.svg";
+import mistTrio from "../assets/images/product-illustrations/mist-trio.svg";
+import sephoraPalette from "../assets/images/product-illustrations/sephora-palette.svg";
+import ouaiShampoo from "../assets/images/product-illustrations/ouai-shampoo.svg";
+import erborianBb from "../assets/images/product-illustrations/erborian-bb.svg";
+import phlurPerfume from "../assets/images/product-illustrations/phlur-perfume.svg";
+import solDeJaneiroMists from "../assets/images/product-illustrations/sol-de-janeiro-mists.svg";
 import makeupImage from "../assets/images/pink-dose/makeup.jpg";
 import creamImage from "../assets/images/pink-dose/cream.jpg";
 import serumImage from "../assets/images/pink-dose/serum.jpg";
 import skincareImage from "../assets/images/pink-dose/skincare.jpg";
-import fragranceImage from "../assets/images/pink-dose/fragrance.jpg";
 import perfumeImage from "../assets/images/pink-dose/perfume.jpg";
 
 export const categories = [
@@ -13,14 +22,16 @@ export const categories = [
   { title: "Haircare", image: serumImage },
 ];
 
+const toIndicativeMad = (priceEur) => String(Math.round(priceEur * 10.8));
+
 export const paginationItems = [
   {
     _id: 1001,
-    img: makeupImage,
-    imageAlt: "Editorial makeup photography",
+    img: diorEyeshadow,
+    imageAlt: "Original illustration of a five-shade eye palette, not official product photography",
     productName: "Diorshow 5 Couleurs",
     brand: "Dior",
-    price: "810",
+    price: toIndicativeMad(75),
     sourcePriceEur: 75,
     sourceUrl:
       "https://www.sephora.fr/p/diorshow-5-couleurs---edition-limitee--palette-yeux-5-fards-a-paupieres-836257.html",
@@ -31,11 +42,11 @@ export const paginationItems = [
   },
   {
     _id: 1002,
-    img: serumImage,
-    imageAlt: "Editorial hair-care photography",
+    img: dysonStyler,
+    imageAlt: "Original illustration of a hair multi-styler, not official product photography",
     productName: "Airwrap Co-anda2x™",
     brand: "Dyson",
-    price: "7009",
+    price: toIndicativeMad(649),
     sourcePriceEur: 649,
     sourceUrl:
       "https://www.sephora.fr/p/airwrap-co-anda2x%E2%84%A2---multi-styler-sechant-cheveux-raides-a-ondule-831304.html",
@@ -46,11 +57,11 @@ export const paginationItems = [
   },
   {
     _id: 1003,
-    img: creamImage,
-    imageAlt: "Editorial skin-care photography",
+    img: rhodeSet,
+    imageAlt: "Original illustration of a three-piece face-care set, not official product photography",
     productName: "Sugarmint Trio",
     brand: "Rhode",
-    price: "810",
+    price: toIndicativeMad(75),
     sourcePriceEur: 75,
     sourceUrl:
       "https://www.sephora.fr/p/sugarmint-trio---coffret-soin-visage--edition-limitee--P1000216004.html",
@@ -61,11 +72,11 @@ export const paginationItems = [
   },
   {
     _id: 1004,
-    img: perfumeImage,
-    imageAlt: "Editorial fragrance photography",
+    img: yslFragrance,
+    imageAlt: "Original illustration of a woody floral perfume bottle, not official product photography",
     productName: "YSL LIBRE Santal Couture",
     brand: "Yves Saint Laurent",
-    price: "1480",
+    price: toIndicativeMad(137),
     sourcePriceEur: 137,
     sourceUrl:
       "https://www.sephora.fr/p/ysl-libre-santal-couture---eau-de-parfum-femme-florale-boisee-822753.html",
@@ -76,11 +87,11 @@ export const paginationItems = [
   },
   {
     _id: 1005,
-    img: creamImage,
-    imageAlt: "Editorial body and bath photography",
+    img: mistTrio,
+    imageAlt: "Original illustration of three body and hair mists, not official product photography",
     productName: "MIST & MATCH",
     brand: "Sephora Collection",
-    price: "216",
+    price: toIndicativeMad(19.99),
     sourcePriceEur: 19.99,
     sourceUrl:
       "https://www.sephora.fr/p/mist-et-match----coffret-trio-de-brumes-parfumees-corps-et-cheveux-P1000215844.html",
@@ -91,11 +102,11 @@ export const paginationItems = [
   },
   {
     _id: 1006,
-    img: makeupImage,
-    imageAlt: "Editorial makeup photography",
+    img: sephoraPalette,
+    imageAlt: "Original illustration of a nine-shade eye palette, not official product photography",
     productName: "ALL THAT GLIMMERS",
     brand: "Sephora Collection",
-    price: "194",
+    price: toIndicativeMad(17.99),
     sourcePriceEur: 17.99,
     sourceUrl:
       "https://www.sephora.fr/p/all-that-glimmers---9-eyeshadow-palette-800325.html",
@@ -106,11 +117,11 @@ export const paginationItems = [
   },
   {
     _id: 1007,
-    img: serumImage,
-    imageAlt: "Editorial hair-care photography",
+    img: ouaiShampoo,
+    imageAlt: "Original illustration of a clarifying shampoo bottle, not official product photography",
     productName: "Detox shampoo",
     brand: "OUAI",
-    price: "189",
+    price: toIndicativeMad(17.5),
     sourcePriceEur: 17.5,
     sourceUrl:
       "https://www.sephora.fr/p/detox-shampoo---shampoing-detox-514570.html",
@@ -121,11 +132,11 @@ export const paginationItems = [
   },
   {
     _id: 1008,
-    img: skincareImage,
-    imageAlt: "Editorial skin-care photography",
+    img: erborianBb,
+    imageAlt: "Original illustration of a tinted face-care tube, not official product photography",
     productName: "Triple care BB milk",
     brand: "Erborian",
-    price: "215",
+    price: toIndicativeMad(19.9),
     sourcePriceEur: 19.9,
     sourceUrl:
       "https://www.sephora.fr/p/triple-care-bb-milk---soin-concentre-effet-peau-de-bebe-824189.html",
@@ -136,11 +147,11 @@ export const paginationItems = [
   },
   {
     _id: 1009,
-    img: fragranceImage,
-    imageAlt: "Editorial fragrance photography",
+    img: phlurPerfume,
+    imageAlt: "Original illustration of a warm vanilla fragrance bottle, not official product photography",
     productName: "Vanilla Canyon",
     brand: "PHLUR",
-    price: "1026",
+    price: toIndicativeMad(95),
     sourcePriceEur: 95,
     sourceUrl:
       "https://www.sephora.fr/p/vanilla-canyon---eau-de-parfum-819810.html",
@@ -151,11 +162,11 @@ export const paginationItems = [
   },
   {
     _id: 1010,
-    img: creamImage,
-    imageAlt: "Editorial body and bath photography",
+    img: solDeJaneiroMists,
+    imageAlt: "Original illustration of a fragranced body mist set, not official product photography",
     productName: "Livin' A Vida Cheirosa",
     brand: "Sol de Janeiro",
-    price: "431",
+    price: toIndicativeMad(39.9),
     sourcePriceEur: 39.9,
     sourceUrl:
       "https://www.sephora.fr/p/livin--a-vida-cheirosa---coffret-de-brumes-parfumees-P1000215983.html",

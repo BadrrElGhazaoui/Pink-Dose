@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750">
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f5ebe9"/><stop offset="1" stop-color="#e5d4d1"/></linearGradient>
+    <linearGradient id="bottle" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".86"/><stop offset="1" stop-color="#d1aaa3" stop-opacity=".8"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <circle cx="116" cy="163" r="92" fill="#fff" opacity=".25"/>
+  <ellipse cx="300" cy="587" rx="194" ry="25" fill="#5a4246" opacity=".2" filter="url(#shadow)"/>
+  <g>
+    <g transform="rotate(-9 200 395)">
+      <rect x="151" y="278" width="92" height="255" rx="26" fill="#d99c99"/>
+      <rect x="171" y="241" width="52" height="49" rx="9" fill="#6c5358"/>
+      <rect x="184" y="218" width="26" height="27" rx="4" fill="#e8d7ce"/>
+      <path d="M165 316h64M165 489h64" stroke="#fce4dd" stroke-width="5" opacity=".8"/>
+      <text x="197" y="403" fill="#fff7ef" font-family="Arial,sans-serif" font-size="14" text-anchor="middle" letter-spacing="2">MIST</text>
+    </g>
+    <g>
+      <rect x="254" y="226" width="100" height="308" rx="28" fill="url(#bottle)" stroke="#c09a95" stroke-width="3"/>
+      <rect x="278" y="186" width="52" height="50" rx="9" fill="#84717b"/>
+      <rect x="291" y="165" width="26" height="24" rx="4" fill="#f5e8dc"/>
+      <path d="M269 276h70M269 494h70" stroke="#fff" stroke-width="5" opacity=".8"/>
+      <text x="304" y="394" fill="#78616a" font-family="Arial,sans-serif" font-size="15" text-anchor="middle" letter-spacing="2">BODY</text>
+    </g>
+    <g transform="rotate(9 410 395)">
+      <rect x="357" y="278" width="92" height="255" rx="26" fill="#b9a2ad"/>
+      <rect x="377" y="241" width="52" height="49" rx="9" fill="#594b59"/>
+      <rect x="390" y="218" width="26" height="27" rx="4" fill="#eee2dc"/>
+      <path d="M371 316h64M371 489h64" stroke="#f7eeea" stroke-width="5" opacity=".8"/>
+      <text x="403" y="403" fill="#fff7ef" font-family="Arial,sans-serif" font-size="14" text-anchor="middle" letter-spacing="2">HAIR</text>
+    </g>
+  </g>
+  <text x="300" y="621" fill="#614d52" font-family="Georgia,serif" font-size="25" text-anchor="middle" letter-spacing="5">FRAGRANCED MIST TRIO</text>
+  <text x="300" y="665" fill="#927c7c" font-family="Arial,sans-serif" font-size="14" text-anchor="middle" letter-spacing="4">ILLUSTRATIVE PACK SHOT</text>
+</svg>

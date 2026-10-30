@@ -68,8 +68,9 @@ const Shop = () => {
       <Breadcrumbs title="The beauty edit" />
       <p className="mb-8 max-w-2xl text-sm leading-6 text-[#786b6b]">
         Explore Sephora France's makeup, fragrance, face care, body and bath,
-        and haircare categories. MAD prices are indicative conversions from
-        current French prices and may vary.
+        and haircare categories. Product images are original illustrations,
+        not official product photos. MAD prices use an approximate 10.8 MAD
+        per euro conversion and may vary.
       </p>
 
       {/* Main Shop Container */}

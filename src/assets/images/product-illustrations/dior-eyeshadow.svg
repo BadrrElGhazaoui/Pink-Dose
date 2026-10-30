@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750">
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f6eee9"/><stop offset="1" stop-color="#e8d8d1"/></linearGradient>
+    <linearGradient id="case" x2="1" y2="1"><stop stop-color="#292428"/><stop offset=".5" stop-color="#51434b"/><stop offset="1" stop-color="#211e22"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <circle cx="480" cy="145" r="115" fill="#fff" opacity=".22"/>
+  <ellipse cx="300" cy="577" rx="188" ry="27" fill="#47343b" opacity=".22" filter="url(#shadow)"/>
+  <g transform="rotate(-9 300 380)">
+    <rect x="101" y="214" width="398" height="326" rx="34" fill="url(#case)"/>
+    <rect x="123" y="236" width="354" height="282" rx="24" fill="#201d21" stroke="#84747b" stroke-width="2"/>
+    <g stroke="#b6a8a2" stroke-width="3">
+      <rect x="145" y="257" width="93" height="101" rx="16" fill="#aa7768"/>
+      <rect x="253" y="257" width="93" height="101" rx="16" fill="#d7b79e"/>
+      <rect x="361" y="257" width="93" height="101" rx="16" fill="#78606b"/>
+      <rect x="145" y="375" width="93" height="101" rx="16" fill="#c88780"/>
+      <rect x="253" y="375" width="93" height="101" rx="16" fill="#e1cbb7"/>
+      <rect x="361" y="375" width="93" height="101" rx="16" fill="#55464f"/>
+    </g>
+    <path d="M142 245h315" stroke="#b79da0" stroke-width="2" opacity=".7"/>
+  </g>
+  <text x="300" y="641" fill="#5a4649" font-family="Georgia,serif" font-size="25" text-anchor="middle" letter-spacing="5">FIVE-SHADE EYE PALETTE</text>
+  <text x="300" y="680" fill="#927c7c" font-family="Arial,sans-serif" font-size="14" text-anchor="middle" letter-spacing="4">ILLUSTRATIVE PACK SHOT</text>
+</svg>

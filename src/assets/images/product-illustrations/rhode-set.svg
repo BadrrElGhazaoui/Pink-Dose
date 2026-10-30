@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750">
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f4e8e4"/><stop offset="1" stop-color="#e5d1cc"/></linearGradient>
+    <linearGradient id="tube" x2="1" y2="1"><stop stop-color="#f9f2ec"/><stop offset="1" stop-color="#d5b9b0"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <circle cx="482" cy="171" r="110" fill="#fff" opacity=".25"/>
+  <ellipse cx="300" cy="591" rx="191" ry="25" fill="#66504e" opacity=".2" filter="url(#shadow)"/>
+  <g>
+    <rect x="119" y="343" width="121" height="203" rx="25" fill="#eee2db"/>
+    <rect x="133" y="326" width="93" height="28" rx="8" fill="#c4a49a"/>
+    <rect x="261" y="286" width="126" height="260" rx="25" fill="url(#tube)"/>
+    <rect x="283" y="535" width="82" height="28" rx="7" fill="#b4948a"/>
+    <path d="M292 309h64" stroke="#fff" stroke-width="5" opacity=".7"/>
+    <rect x="410" y="362" width="88" height="184" rx="22" fill="#e9ddd6"/>
+    <rect x="424" y="346" width="60" height="26" rx="8" fill="#b28d86"/>
+    <g fill="#98756f" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" letter-spacing="2">
+      <text x="180" y="428">LIP</text><text x="180" y="447">TREAT</text>
+      <text x="324" y="403">FACE</text><text x="324" y="422">CARE</text>
+      <text x="454" y="438">SKIN</text>
+    </g>
+  </g>
+  <text x="300" y="635" fill="#614d4a" font-family="Georgia,serif" font-size="25" text-anchor="middle" letter-spacing="5">THREE-PIECE SKIN SET</text>
+  <text x="300" y="677" fill="#927c7c" font-family="Arial,sans-serif" font-size="14" text-anchor="middle" letter-spacing="4">ILLUSTRATIVE PACK SHOT</text>
+</svg>
