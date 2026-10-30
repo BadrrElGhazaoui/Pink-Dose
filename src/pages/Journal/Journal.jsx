@@ -1,338 +1,166 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { FiArrowLeft, FiArrowUpRight, FiSearch } from "react-icons/fi";
 import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
-import { motion, AnimatePresence } from "framer-motion";
-import { FiClock, FiUser, FiArrowRight, FiSearch, FiArrowLeft, FiShare2, FiMessageCircle } from "react-icons/fi";
-import { bannerImgOne, bannerImgTwo, bannerImgThree, newArrTwo } from "../../assets/images";
-import { toast } from "react-toastify";
+import { editorialImage, makeupImage, serumImage } from "../../assets/images";
+
+const articles = [
+  {
+    id: "skin-ritual",
+    category: "Skincare",
+    title: "A skin-care ritual that feels like yours",
+    excerpt:
+      "A gentle reminder that a thoughtful routine can be simple, personal and a little moment just for you.",
+    image: editorialImage,
+    paragraphs: [
+      "A good skin-care ritual doesn’t have to be complicated. Start with the steps that feel comfortable for you, and give yourself room to discover what works with your skin and your routine.",
+      "Take your time choosing products, read the instructions on their packaging, and introduce new products thoughtfully. If you have concerns about your skin, a qualified professional can offer advice that’s right for you.",
+      "Most of all, let your routine be yours. A small moment of care can be reason enough.",
+    ],
+  },
+  {
+    id: "makeup-mood",
+    category: "Makeup",
+    title: "Makeup is a mood, not a rulebook",
+    excerpt:
+      "A favourite lip, a soft wash of colour, or nothing at all — beauty is better when it feels like you.",
+    image: makeupImage,
+    paragraphs: [
+      "Some days call for a little extra colour. Other days, the best look is the one you already have. Makeup is a lovely way to experiment, but it never needs to follow a set of rules.",
+      "Try a texture or shade that catches your eye, take inspiration from the colours you already love, and build your look at your own pace.",
+      "Keep the products and tools you enjoy close at hand, and have fun with the rest.",
+    ],
+  },
+  {
+    id: "little-rituals",
+    category: "Beauty notes",
+    title: "The little rituals that make a day",
+    excerpt:
+      "An everyday favourite, a familiar fragrance, a few quiet minutes — beauty lives in the little things.",
+    image: serumImage,
+    paragraphs: [
+      "Beauty doesn’t only belong to special occasions. It can be a familiar scent before heading out, a few quiet minutes in front of the mirror, or the product you reach for without thinking.",
+      "There is no perfect routine to keep up with. Pick what brings you joy, make space for it when you can, and let the small rituals change along with you.",
+      "That’s the Pink Dose feeling: a little more you, one day at a time.",
+    ],
+  },
+];
 
 const Journal = () => {
-  const [selectedTag, setSelectedTag] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeArticle, setActiveArticle] = useState(null);
-  const [commentInput, setCommentInput] = useState("");
-  const [comments, setComments] = useState([
-    { id: 1, user: "Elena Rostova", time: "2 hours ago", text: "Great insights on minimalist living! I upgraded my workspace last week and my focus has doubled." },
-    { id: 2, user: "James Wilson", time: "1 day ago", text: "The smartwatch comparison section was very detailed. Ordering the Smart Watch Ultra Pro now!" }
-  ]);
-
-  const articles = [
-    {
-      id: 1,
-      title: "The Ultimate Guide to Modern Minimalist Lifestyle & Tech 2026",
-      excerpt: "Discover how simplifying your workspace and adopting high-efficiency smart tech gadgets can elevate daily focus and productivity.",
-      content: `
-        Embracing minimalism in 2026 isn't just about owning fewer possessions—it's about intentional curation of tools that elevate your focus, health, and daily workflow.
-
-        Key Takeaways for Minimalist Tech setup:
-        1. Single-cable Thunderbolt docking to declutter your desk.
-        2. High-fidelity wireless audio for distraction-free deep work.
-        3. Dimmable warm LED ambient lighting to reduce late-night eye strain.
-
-        When you reduce visual friction in your environment, your cognitive bandwidth expands. Orebi curated tech accessories are designed with matte finishes and clean geometric lines to fit seamlessly into any modern studio.
-      `,
-      category: "Tech & Style",
-      author: "Alex Morgan",
-      date: "July 20, 2026",
-      readTime: "5 min read",
-      img: bannerImgOne,
-    },
-    {
-      id: 2,
-      title: "10 Essential Commuter Backpack Features You Shouldn't Ignore",
-      excerpt: "From RFID protection to ergonomic weight distribution, here is what makes a travel bag durable and airport-friendly.",
-      content: `
-        Navigating urban transit or international airports requires a backpack built for security, comfort, and weather resistance.
-
-        Top 4 Non-Negotiable Backpack Features:
-        - RFID-Blocking Concealed Pocket for passports and cards.
-        - High-density EVA foam back panel for lumbar support.
-        - Water-repellent 1680D ballistic nylon exterior.
-        - Dedicated padded 15.6" laptop compartment with drop protection.
-
-        Whether commuting daily or taking weekend getaway flights, investing in a properly balanced duffle or backpack prevents back strain and keeps your gear organized.
-      `,
-      category: "Guides",
-      author: "Sarah Jenkins",
-      date: "July 15, 2026",
-      readTime: "4 min read",
-      img: bannerImgTwo,
-    },
-    {
-      id: 3,
-      title: "Why Smartwatches are Replacing Traditional Fitness Monitors",
-      excerpt: "An in-depth analysis of AMOLED displays, real-time health telemetry, and long battery life in contemporary wearables.",
-      content: `
-        Modern smartwatches have evolved beyond simple step counters into real-time health intelligence hubs.
-
-        Wearable Innovations to Watch in 2026:
-        - Continuous ECG and SpO2 tracking with early anomaly alerts.
-        - Ultra-bright 2000-nits outdoor AMOLED displays.
-        - 14-day extended battery management algorithms.
-        - Waterproof swim telemetry up to 50M depth.
-
-        Pairing a sleek smartwatch with minimalist apparel bridges the gap between athletic performance tracking and high-end streetwear.
-      `,
-      category: "Tech",
-      author: "David Chen",
-      date: "July 10, 2026",
-      readTime: "6 min read",
-      img: newArrTwo,
-    },
-    {
-      id: 4,
-      title: "Curating Sustainable & Timeless Home Living Spaces",
-      excerpt: "How selecting natural ceramic decor and minimalist furniture pieces creates enduring peace in urban apartments.",
-      content: `
-        Creating a calming sanctuary begins with raw materials—natural clay ceramics, solid ash woods, and muted organic linens.
-
-        Design Tips for Tranquil Interiors:
-        - Choose one sculptural centerpiece (like an artisan ceramic vase) per room.
-        - Incorporate warm neutral tones (beige, gray, cream) over harsh saturated hues.
-        - Maximize natural sunlight with sheer linen window treatments.
-
-        Our home accent collection is hand-assembled by master ceramic artisans to bring warmth and understated elegance to modern homes.
-      `,
-      category: "Lifestyle",
-      author: "Emma Watson",
-      date: "July 02, 2026",
-      readTime: "3 min read",
-      img: bannerImgThree,
-    },
-  ];
-
-  const tags = ["All", "Tech & Style", "Guides", "Tech", "Lifestyle"];
-
-  const filteredArticles = articles.filter((art) => {
-    const matchesTag = selectedTag === "All" || art.category === selectedTag;
-    const matchesQuery =
-      art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      art.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesTag && matchesQuery;
-  });
-
-  const handleAddComment = (e) => {
-    e.preventDefault();
-    if (!commentInput.trim()) return;
-    const newComm = {
-      id: Date.now(),
-      user: "You (Verified Reader)",
-      time: "Just now",
-      text: commentInput,
-    };
-    setComments([newComm, ...comments]);
-    setCommentInput("");
-    toast.success("Comment posted successfully!");
-  };
-
-  const handleShare = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
-      toast.success("Article link copied to clipboard!");
-    }
-  };
+  const searchTerm = searchQuery.trim().toLowerCase();
+  const filteredArticles = articles.filter((article) =>
+    [article.title, article.excerpt, article.category]
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm)
+  );
 
   return (
-    <div className="max-w-container mx-auto px-4 pb-20">
-      <Breadcrumbs title={activeArticle ? activeArticle.title : "Orebi Journal"} />
+    <main className="mx-auto max-w-[1440px] px-4 pb-20 sm:px-6 lg:px-10">
+      <Breadcrumbs title={activeArticle?.title || "Beauty notes"} />
 
-      {/* ARTICLE READER VIEW */}
       {activeArticle ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl p-6 md:p-10 shadow-xs"
-        >
-          {/* Back Button */}
+        <article className="mx-auto max-w-3xl border-t border-[#eee5e2] pt-8">
           <button
             type="button"
             onClick={() => setActiveArticle(null)}
-            className="inline-flex items-center gap-2 text-sm font-bold text-primeColor hover:text-black mb-8 px-4 py-2 bg-gray-100 rounded-lg transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs font-medium text-[#786b6b] hover:text-[#a76e79]"
           >
-            <FiArrowLeft /> Back to All Articles
+            <FiArrowLeft />
+            Back to beauty notes
           </button>
-
-          {/* Article Header */}
-          <div className="mb-8">
-            <span className="text-xs uppercase tracking-widest bg-primeColor text-white font-bold px-3 py-1 rounded-full">
-              {activeArticle.category}
-            </span>
-            <h1 className="text-3xl md:text-5xl font-bold font-titleFont text-primeColor mt-4 mb-4 leading-tight">
-              {activeArticle.title}
-            </h1>
-            <div className="flex flex-wrap items-center justify-between gap-4 text-xs text-secondary border-b border-gray-200 pb-6">
-              <div className="flex items-center gap-4">
-                <span className="flex items-center gap-1.5 font-semibold text-primeColor">
-                  <FiUser /> {activeArticle.author}
-                </span>
-                <span>•</span>
-                <span>{activeArticle.date}</span>
-                <span>•</span>
-                <span className="flex items-center gap-1">
-                  <FiClock /> {activeArticle.readTime}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={handleShare}
-                className="flex items-center gap-1.5 px-3 py-1.5 border border-gray-200 rounded-md hover:bg-gray-50 text-primeColor font-semibold cursor-pointer"
-              >
-                <FiShare2 /> Share Article
-              </button>
+          <div className="mt-7 aspect-[16/8] overflow-hidden bg-[#f7f0ed]">
+            <img
+              src={activeArticle.image}
+              alt=""
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <p className="pink-dose-kicker mt-8">{activeArticle.category}</p>
+          <h1 className="mt-3 font-titleFont text-3xl leading-tight sm:text-5xl">
+            {activeArticle.title}
+          </h1>
+          <p className="mt-4 text-base leading-7 text-[#786b6b]">
+            {activeArticle.excerpt}
+          </p>
+          <div className="mt-8 space-y-5 text-sm leading-7 text-[#65575a]">
+            {activeArticle.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          <Link
+            to="/shop"
+            className="pink-dose-section-link mt-9 inline-flex items-center gap-2"
+          >
+            Explore the beauty edit <FiArrowUpRight />
+          </Link>
+        </article>
+      ) : (
+        <>
+          <div className="flex flex-col justify-between gap-5 border-t border-[#eee5e2] py-7 sm:flex-row sm:items-end">
+            <div>
+              <p className="pink-dose-kicker mb-2">A little inspiration</p>
+              <p className="max-w-xl text-sm leading-6 text-[#786b6b]">
+                Thoughts on beauty, small rituals, and finding what feels like
+                you.
+              </p>
             </div>
-          </div>
-
-          {/* Featured Image */}
-          <div className="w-full h-80 md:h-[450px] rounded-xl overflow-hidden mb-8 border border-gray-100 bg-gray-50">
-            <img src={activeArticle.img} alt={activeArticle.title} className="w-full h-full object-cover" />
-          </div>
-
-          {/* Article Content */}
-          <div className="prose max-w-none text-secondary text-base leading-relaxed space-y-6 mb-12 border-b border-gray-200 pb-12 whitespace-pre-line font-bodyFont">
-            {activeArticle.content}
-          </div>
-
-          {/* Comments Section */}
-          <div className="mt-8">
-            <h3 className="text-xl font-bold font-titleFont text-primeColor mb-6 flex items-center gap-2">
-              <FiMessageCircle /> Reader Discussion ({comments.length})
-            </h3>
-
-            {/* New Comment Input */}
-            <form onSubmit={handleAddComment} className="mb-8">
-              <textarea
-                rows={3}
-                value={commentInput}
-                onChange={(e) => setCommentInput(e.target.value)}
-                placeholder="Share your thoughts on this article..."
-                className="w-full border border-gray-200 rounded-xl p-4 text-sm outline-none focus:border-primeColor mb-3 resize-none"
+            <label className="flex h-10 w-full items-center gap-2 border-b border-[#ded1cf] px-1 text-[#786b6b] focus-within:border-[#a76e79] sm:max-w-xs">
+              <FiSearch className="shrink-0" />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search beauty notes"
+                aria-label="Search beauty notes"
+                className="h-full min-w-0 flex-1 bg-transparent text-xs text-[#302326] outline-none placeholder:text-[#a99c9b]"
               />
-              <button
-                type="submit"
-                className="px-6 py-2.5 bg-primeColor text-white text-sm font-semibold rounded-lg hover:bg-black transition-colors cursor-pointer"
-              >
-                Post Comment
-              </button>
-            </form>
+            </label>
+          </div>
 
-            {/* List of Comments */}
-            <div className="space-y-4">
-              {comments.map((c) => (
-                <div key={c.id} className="bg-gray-50 border border-gray-200 rounded-xl p-4">
-                  <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="font-bold text-primeColor">{c.user}</span>
-                    <span className="text-gray-400">{c.time}</span>
+          {filteredArticles.length ? (
+            <div className="grid gap-6 border-t border-[#eee5e2] pt-7 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredArticles.map((article) => (
+                <button
+                  type="button"
+                  key={article.id}
+                  onClick={() => {
+                    setActiveArticle(article);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="group text-left"
+                >
+                  <div className="aspect-[4/3] overflow-hidden bg-[#f7f0ed]">
+                    <img
+                      src={article.image}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.035]"
+                    />
                   </div>
-                  <p className="text-sm text-secondary leading-relaxed">{c.text}</p>
-                </div>
+                  <p className="pink-dose-kicker mt-4">{article.category}</p>
+                  <span className="mt-2 block font-titleFont text-2xl leading-snug text-[#302326]">
+                    {article.title}
+                  </span>
+                  <span className="mt-2 block text-sm leading-6 text-[#786b6b]">
+                    {article.excerpt}
+                  </span>
+                  <span className="mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#a76e79]">
+                    Read the note <FiArrowUpRight />
+                  </span>
+                </button>
               ))}
             </div>
-          </div>
-        </motion.div>
-      ) : (
-        /* MAIN JOURNAL GRID VIEW */
-        <div>
-          {/* Header & Search Bar */}
-          <div className="py-8 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-200 mb-10">
-            <div>
-              <span className="text-xs uppercase tracking-widest text-secondary font-bold font-titleFont bg-gray-100 px-3 py-1 rounded-full">
-                Insights & Inspiration
-              </span>
-              <h1 className="text-3xl md:text-5xl font-bold font-titleFont text-primeColor mt-3">
-                Stories, Trends & Buying Guides
-              </h1>
-            </div>
-
-            <div className="relative w-full md:w-80">
-              <input
-                type="text"
-                placeholder="Search journal articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full border border-gray-200 py-2.5 pl-10 pr-4 rounded-lg text-sm text-primeColor outline-none focus:border-primeColor shadow-xs"
-              />
-              <FiSearch className="absolute left-3 top-3 text-secondary text-base" />
-            </div>
-          </div>
-
-          {/* Category Tags */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
-            {tags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setSelectedTag(tag)}
-                className={`px-4 py-2 text-sm font-semibold rounded-full whitespace-nowrap transition-colors duration-200 cursor-pointer ${
-                  selectedTag === tag
-                    ? "bg-primeColor text-white shadow-xs"
-                    : "bg-gray-100 text-secondary hover:bg-gray-200 hover:text-primeColor"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-
-          {/* Article Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredArticles.map((art) => (
-              <motion.div
-                key={art.id}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-shadow duration-300 flex flex-col group cursor-pointer"
-                onClick={() => {
-                  setActiveArticle(art);
-                  window.scrollTo({ top: 200, behavior: "smooth" });
-                }}
-              >
-                <div className="h-52 overflow-hidden bg-gray-100 relative">
-                  <img
-                    src={art.img}
-                    alt={art.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-primeColor text-xs font-bold px-3 py-1 rounded-full shadow-xs">
-                    {art.category}
-                  </span>
-                </div>
-
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-4 text-xs text-secondary mb-3">
-                      <span className="flex items-center gap-1">
-                        <FiUser /> {art.author}
-                      </span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <FiClock /> {art.readTime}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold font-titleFont text-primeColor mb-3 group-hover:text-black transition-colors leading-snug">
-                      {art.title}
-                    </h3>
-                    <p className="text-sm text-secondary leading-relaxed line-clamp-3 mb-6">
-                      {art.excerpt}
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveArticle(art);
-                      window.scrollTo({ top: 200, behavior: "smooth" });
-                    }}
-                    className="inline-flex items-center gap-2 text-sm font-bold text-primeColor group-hover:translate-x-1 transition-transform cursor-pointer"
-                  >
-                    Read Article <FiArrowRight />
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+          ) : (
+            <p className="border-t border-[#eee5e2] py-12 text-center text-sm text-[#786b6b]">
+              No beauty notes match that search. Try another word.
+            </p>
+          )}
+        </>
       )}
-    </div>
+    </main>
   );
 };
 

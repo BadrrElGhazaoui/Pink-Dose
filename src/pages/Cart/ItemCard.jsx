@@ -1,88 +1,96 @@
 import React from "react";
-import { FiTrash2, FiMinus, FiPlus } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
 import { useOrebiStore } from "../../store/useOrebiStore";
+import { formatMad } from "../../utils/currency";
 import { toast } from "react-toastify";
 
 const ItemCard = ({ item }) => {
-  const deleteItemStore = useOrebiStore((state) => state.deleteItem);
-  const increaseQuantityStore = useOrebiStore((state) => state.increaseQuantity);
-  const decreaseQuantityStore = useOrebiStore((state) => state.decreaseQuantity);
-
-  const priceNum = parseFloat(item.price) || 0;
-  const subtotal = (item.quantity * priceNum).toFixed(2);
-
-  const handleDelete = () => {
-    deleteItemStore(item._id);
-    toast.info(`${item.productName || item.name} removed from cart.`, { icon: "🗑️" });
-  };
+  const removeItem = useOrebiStore((state) => state.deleteItem);
+  const increaseQuantity = useOrebiStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useOrebiStore((state) => state.decreaseQuantity);
+  const quantity = item.quantity || 1;
 
   return (
-    <div className="w-full bg-white border border-gray-200 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-6 hover:shadow-xs transition-shadow duration-300">
-      
-      {/* Product Image & Title */}
-      <div className="flex items-center gap-4 w-full sm:w-2/5">
-        <button
-          type="button"
-          onClick={handleDelete}
-          className="text-gray-400 hover:text-red-500 p-2 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
-          title="Remove Item"
-        >
-          <FiTrash2 className="text-lg" />
-        </button>
-        
-        <div className="w-20 h-20 bg-gray-50 rounded-lg border border-gray-100 flex-shrink-0 overflow-hidden flex items-center justify-center">
-          <img className="w-full h-full object-cover" src={item.img || item.image} alt={item.productName || item.name} />
-        </div>
+    <article className="flex items-center gap-3 border-b border-[#eee5e2] py-4 sm:gap-5">
+      <Link
+        to={`/product/${item._id}`}
+        className="h-24 w-20 shrink-0 overflow-hidden bg-[#f7f0ed] sm:h-28 sm:w-24"
+      >
+        <img
+          src={item.img || item.image}
+          alt={item.productName || item.name}
+          className="h-full w-full object-cover"
+        />
+      </Link>
 
-        <div>
-          <h3 className="font-titleFont font-bold text-base text-primeColor line-clamp-1">
-            {item.productName || item.name}
-          </h3>
-          {item.color && (
-            <p className="text-xs text-secondary mt-0.5">Color: {item.color}</p>
-          )}
-          <p className="text-xs text-green-600 font-medium mt-1">In Stock</p>
-        </div>
-      </div>
-
-      {/* Price, Quantity & Subtotal Segment */}
-      <div className="flex items-center justify-between w-full sm:w-3/5 gap-4">
-        {/* Unit Price */}
-        <div className="text-sm font-semibold text-primeColor w-1/3 text-center sm:text-left">
-          ${priceNum.toFixed(2)}
-        </div>
-
-        {/* Quantity Controls */}
-        <div className="w-1/3 flex items-center justify-center">
-          <div className="flex items-center border border-gray-200 rounded-lg bg-gray-50 overflow-hidden">
+      <div className="min-w-0 flex-1">
+        <p className="text-[0.58rem] uppercase tracking-[0.12em] text-[#9b8585]">
+          {item.cat || "The Pink Dose edit"}
+        </p>
+        <h2 className="mt-1 truncate font-titleFont text-base text-[#302326]">
+          {item.productName || item.name}
+        </h2>
+        <p className="mt-1 text-xs text-[#786b6b]">{formatMad(item.price)}</p>
+        <div className="mt-3 flex items-center justify-between gap-3 sm:hidden">
+          <div className="flex items-center border border-[#eee5e2]">
             <button
               type="button"
-              onClick={() => decreaseQuantityStore({ _id: item._id })}
-              className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-200 hover:text-primeColor transition-colors cursor-pointer"
+              onClick={() => decreaseQuantity({ _id: item._id })}
+              aria-label={`Decrease ${item.productName} quantity`}
+              className="flex h-8 w-8 items-center justify-center text-[#786b6b]"
             >
               <FiMinus className="text-xs" />
             </button>
-            <span className="w-10 text-center font-bold text-sm text-primeColor font-titleFont">
-              {item.quantity}
-            </span>
+            <span className="w-7 text-center text-xs">{quantity}</span>
             <button
               type="button"
-              onClick={() => increaseQuantityStore({ _id: item._id })}
-              className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-200 hover:text-primeColor transition-colors cursor-pointer"
+              onClick={() => increaseQuantity({ _id: item._id })}
+              aria-label={`Increase ${item.productName} quantity`}
+              className="flex h-8 w-8 items-center justify-center text-[#786b6b]"
             >
               <FiPlus className="text-xs" />
             </button>
           </div>
-        </div>
-
-        {/* Subtotal */}
-        <div className="w-1/3 text-right">
-          <span className="font-titleFont font-bold text-base text-primeColor">
-            ${subtotal}
-          </span>
+          <button
+            type="button"
+            onClick={() => {
+              removeItem(item._id);
+              toast.info("Beauty find removed from your bag.");
+            }}
+            aria-label={`Remove ${item.productName} from your bag`}
+            className="p-2 text-[#897d7b] hover:text-[#a76e79]"
+          >
+            <FiTrash2 />
+          </button>
         </div>
       </div>
-    </div>
+
+      <div className="hidden shrink-0 flex-col items-end gap-3 sm:flex">
+        <span className="text-sm font-semibold text-[#302326]">
+          {formatMad(Number(item.price) * quantity)}
+        </span>
+        <div className="flex items-center border border-[#eee5e2]">
+          <button
+            type="button"
+            onClick={() => decreaseQuantity({ _id: item._id })}
+            aria-label={`Decrease ${item.productName} quantity`}
+            className="flex h-8 w-8 items-center justify-center text-[#786b6b]"
+          >
+            <FiMinus className="text-xs" />
+          </button>
+          <span className="w-7 text-center text-xs">{quantity}</span>
+          <button
+            type="button"
+            onClick={() => increaseQuantity({ _id: item._id })}
+            aria-label={`Increase ${item.productName} quantity`}
+            className="flex h-8 w-8 items-center justify-center text-[#786b6b]"
+          >
+            <FiPlus className="text-xs" />
+          </button>
+        </div>
+      </div>
+    </article>
   );
 };
 

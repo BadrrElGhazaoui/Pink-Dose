@@ -3,10 +3,10 @@ import NavTitle from "./NavTitle";
 
 const Price = ({ selectedPrice, onSelectPrice }) => {
   const priceList = [
-    { _id: 950, priceOne: 0.0, priceTwo: 49.99 },
-    { _id: 951, priceOne: 50.0, priceTwo: 99.99 },
-    { _id: 952, priceOne: 100.0, priceTwo: 199.99 },
-    { _id: 953, priceOne: 200.0, priceTwo: 399.99 },
+    { _id: 950, priceOne: 0, priceTwo: 299 },
+    { _id: 951, priceOne: 300, priceTwo: 399 },
+    { _id: 952, priceOne: 400, priceTwo: 599 },
+    { _id: 953, priceOne: 600, priceTwo: 1200 },
   ];
 
   return (
@@ -21,23 +21,25 @@ const Price = ({ selectedPrice, onSelectPrice }) => {
               selectedPrice.priceTwo === item.priceTwo;
 
             return (
-              <li
-                key={item._id}
-                onClick={() => onSelectPrice && onSelectPrice(isSelected ? null : item)}
-                className={`border-b-[1px] border-b-border pb-2 flex items-center justify-between cursor-pointer duration-200 transition-colors ${
-                  isSelected
-                    ? "font-bold text-primeColor border-b-primeColor"
-                    : "text-secondary hover:text-primeColor hover:border-gray-400"
-                }`}
-              >
-                <span>
-                  ${item.priceOne.toFixed(2)} - ${item.priceTwo.toFixed(2)}
-                </span>
-                {isSelected && (
-                  <span className="text-xs bg-primeColor text-white px-2 py-0.5 rounded-full">
-                    Active
+              <li key={item._id}>
+                <button
+                  type="button"
+                  onClick={() =>
+                    onSelectPrice?.(isSelected ? null : item)
+                  }
+                  aria-pressed={Boolean(isSelected)}
+                  className={`flex w-full items-center justify-between border-b border-[#eee5e2] pb-2 text-left text-sm transition-colors ${
+                    isSelected
+                      ? "font-semibold text-[#a76e79]"
+                      : "text-[#786b6b] hover:text-[#302326]"
+                  }`}
+                >
+                  <span>
+                    {item.priceOne.toLocaleString("fr-MA")}–
+                    {item.priceTwo.toLocaleString("fr-MA")} MAD
                   </span>
-                )}
+                  {isSelected && <span className="text-xs">Selected</span>}
+                </button>
               </li>
             );
           })}

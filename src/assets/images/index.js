@@ -31,6 +31,11 @@ import productOfTheYear from "./products/productOfTheYear.webp";
 // ============== Products End here ======================
 import paymentCard from "./payment.png";
 import emptyCart from "../images/emptyCart.png";
+import heroImage from "./pink-dose/hero.jpg";
+import editorialImage from "./pink-dose/editorial.jpg";
+import portraitImage from "./pink-dose/portrait.jpg";
+import makeupImage from "./pink-dose/makeup.jpg";
+import serumImage from "./pink-dose/serum.jpg";
 
 export {
   logo,
@@ -66,4 +71,9 @@ export {
   // ===================== Products End here ==============
   paymentCard,
   emptyCart,
+  heroImage,
+  editorialImage,
+  portraitImage,
+  makeupImage,
+  serumImage,
 };

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { logoLight } from "../../assets/images";
 import { useOrebiStore } from "../../store/useOrebiStore";
 
 const SignUp = () => {
@@ -61,7 +60,7 @@ const SignUp = () => {
         zip: zip,
       });
 
-      setSuccessMsg(`Welcome to Orebi, ${clientName}! Account created successfully.`);
+      setSuccessMsg(`Welcome to Pink Dose, ${clientName}. Your local demo profile is ready.`);
       setTimeout(() => {
         navigate("/shop");
       }, 1500);
@@ -76,47 +75,47 @@ const SignUp = () => {
         <div className="w-full md:w-5/12 bg-primeColor text-white p-8 md:p-12 flex flex-col justify-between">
           <div>
             <Link to="/">
-              <img src={logoLight} alt="Orebi Logo" className="w-28 mb-8" />
+              <span className="pink-dose-wordmark mb-8 inline-block text-white">PINK DOSE</span>
             </Link>
             <h2 className="font-titleFont text-2xl md:text-3xl font-bold mb-3 leading-snug">
-              Create Your Free VIP Account
+              Create your Pink Dose profile
             </h2>
             <p className="text-gray-300 text-sm mb-8 leading-relaxed">
-              Join thousands of global shoppers enjoying exclusive rewards, fast shipping, and seamless checkout.
+              Keep your beauty bag and profile together while you discover the edit.
             </p>
 
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <BsCheckCircleFill className="text-green-400 mt-1 flex-shrink-0" />
                 <p className="text-xs text-gray-300">
-                  <strong className="text-white block font-titleFont">100% Free Lifetime Membership</strong>
-                  No hidden fees or recurring subscriptions.
+                  <strong className="text-white block font-titleFont">Beauty, your way</strong>
+                  Make room for the finds you love.
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <BsCheckCircleFill className="text-green-400 mt-1 flex-shrink-0" />
                 <p className="text-xs text-gray-300">
-                  <strong className="text-white block font-titleFont">Instant $10 Welcome Voucher</strong>
-                  Applied automatically to your first purchase over $50.
+                  <strong className="text-white block font-titleFont">From France to Morocco</strong>
+                  Discover authentic Sephora beauty with Pink Dose.
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <BsCheckCircleFill className="text-green-400 mt-1 flex-shrink-0" />
                 <p className="text-xs text-gray-300">
-                  <strong className="text-white block font-titleFont">Priority Customer Support</strong>
-                  24/7 dedicated support via live chat & email.
+                  <strong className="text-white block font-titleFont">A local preview profile</strong>
+                  Your details stay in this browser.
                 </p>
               </div>
             </div>
           </div>
 
           <div className="pt-6 border-t border-gray-700 flex items-center justify-between text-xs text-gray-400 mt-8">
-            <span>© 2026 OREBI</span>
+            <span>© {new Date().getFullYear()} PINK DOSE</span>
             <div className="flex gap-4">
-              <Link to="/about" className="hover:text-white transition-colors">Terms</Link>
-              <Link to="/contact" className="hover:text-white transition-colors">Privacy</Link>
+              <Link to="/about" className="hover:text-white transition-colors">Our story</Link>
+              <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
             </div>
           </div>
         </div>
@@ -128,7 +127,7 @@ const SignUp = () => {
               <div className="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
                 ✓
               </div>
-              <h3 className="text-2xl font-bold font-titleFont text-primeColor mb-2">Account Created!</h3>
+              <h3 className="text-2xl font-bold font-titleFont text-primeColor mb-2">Your profile is ready</h3>
               <p className="text-sm text-secondary mb-6">{successMsg}</p>
               <Link to="/shop">
                 <button className="px-8 py-3 bg-primeColor text-white font-bold rounded-xl hover:bg-black transition-colors">
@@ -153,7 +152,7 @@ const SignUp = () => {
                     type="text"
                     value={clientName}
                     onChange={(e) => { setClientName(e.target.value); setErrClientName(""); }}
-                    placeholder="John Doe"
+                    placeholder="Your name"
                     className="w-full h-10 border border-gray-200 rounded-lg px-3 text-sm outline-none focus:border-primeColor shadow-xs"
                   />
                   {errClientName && <p className="text-[11px] text-red-500 font-semibold mt-0.5">{errClientName}</p>}
@@ -166,7 +165,7 @@ const SignUp = () => {
                     type="email"
                     value={email}
                     onChange={(e) => { setEmail(e.target.value); setErrEmail(""); }}
-                    placeholder="john@example.com"
+                    placeholder="you@example.com"
                     className="w-full h-10 border border-gray-200 rounded-lg px-3 text-sm outline-none focus:border-primeColor shadow-xs"
                   />
                   {errEmail && <p className="text-[11px] text-red-500 font-semibold mt-0.5">{errEmail}</p>}
@@ -179,7 +178,7 @@ const SignUp = () => {
                     type="text"
                     value={phone}
                     onChange={(e) => { setPhone(e.target.value); setErrPhone(""); }}
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+212 6 12 34 56 78"
                     className="w-full h-10 border border-gray-200 rounded-lg px-3 text-sm outline-none focus:border-primeColor shadow-xs"
                   />
                   {errPhone && <p className="text-[11px] text-red-500 font-semibold mt-0.5">{errPhone}</p>}
@@ -214,7 +213,7 @@ const SignUp = () => {
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    placeholder="New York"
+                    placeholder="Casablanca"
                     className="w-full h-10 border border-gray-200 rounded-lg px-3 text-sm outline-none focus:border-primeColor shadow-xs"
                   />
                 </div>
@@ -226,7 +225,7 @@ const SignUp = () => {
                     type="text"
                     value={zip}
                     onChange={(e) => setZip(e.target.value)}
-                    placeholder="10001"
+                    placeholder="20000"
                     className="w-full h-10 border border-gray-200 rounded-lg px-3 text-sm outline-none focus:border-primeColor shadow-xs"
                   />
                 </div>
@@ -239,7 +238,7 @@ const SignUp = () => {
                   type="text"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  placeholder="123 Shopping Blvd, Suite 400"
+                  placeholder="Your street address"
                   className="w-full h-10 border border-gray-200 rounded-lg px-3 text-sm outline-none focus:border-primeColor shadow-xs"
                 />
               </div>
@@ -254,7 +253,7 @@ const SignUp = () => {
                     className="w-4 h-4 rounded text-primeColor focus:ring-primeColor cursor-pointer"
                   />
                   <span className="text-xs text-secondary">
-                    I agree to the <strong className="text-primeColor">Terms of Service</strong> and <strong className="text-primeColor">Privacy Policy</strong>.
+                    I understand this is a local demo profile, saved in this browser.
                   </span>
                 </label>
                 {errAgree && <p className="text-[11px] text-red-500 font-semibold mt-1">{errAgree}</p>}
@@ -264,7 +263,7 @@ const SignUp = () => {
                 type="submit"
                 className="w-full h-11 bg-primeColor text-white font-bold font-titleFont text-sm rounded-lg hover:bg-black transition-colors shadow-md cursor-pointer mb-4"
               >
-                Create Free Account
+                Create profile
               </button>
 
               <p className="text-xs text-center text-secondary">

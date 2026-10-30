@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
 
 @import "tailwindcss";
 
 @theme {
   --font-bodyFont: "DM Sans", sans-serif;
-  --font-titleFont: "Poppins", sans-serif;
+  --font-titleFont: "Playfair Display", Georgia, serif;
 
   --breakpoint-xs: 320px;
   --breakpoint-sm: 375px;
@@ -18,18 +18,18 @@
   --width-container: 1440px;
   --max-width-container: 1440px;
 
-  --shadow-testShadow: 0px 0px 54px -13px rgba(0, 0, 0, 0.7);
+  --shadow-testShadow: 0 12px 40px -20px rgba(48, 35, 38, 0.28);
 
   /* Centralized Semantic Color Tokens */
-  --color-primary: #262626;
-  --color-secondary: #767676;
-  --color-accent: #1e88e5;
-  --color-background: #ffffff;
+  --color-primary: #302326;
+  --color-secondary: #786b6b;
+  --color-accent: #c97788;
+  --color-background: #fffdfb;
   --color-foreground: #262626;
-  --color-muted: #6d6d6d;
-  --color-border: #e5e7eb;
+  --color-muted: #786b6b;
+  --color-border: #eee5e2;
   --color-destructive: #ea2b0f;
-  --color-success: #10b981;
+  --color-success: #547764;
   --color-warning: #f59e0b;
 
   /* Legacy color aliases mapped to semantic tokens */
@@ -38,8 +38,25 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    background: #fffdfb;
+  }
+
+  body {
+    margin: 0;
+    color: #302326;
+    background: #fffdfb;
+    font-family: "DM Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
   *, ::before, ::after, ::backdrop {
     border-color: var(--color-border, #e5e7eb);
+  }
+
+  button, a, input {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -75,4 +92,75 @@ nav .active li {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+.pink-dose-wordmark {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  line-height: 1;
+}
+
+.pink-dose-kicker {
+  color: #a76e79;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.pink-dose-button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border: 1px solid #302326;
+  background: #302326;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.pink-dose-button:hover {
+  background: #513d41;
+}
+
+.pink-dose-button-outline {
+  border-color: #b98991;
+  background: transparent;
+  color: #302326;
+}
+
+.pink-dose-button-outline:hover {
+  background: #f7e8e7;
+}
+
+.pink-dose-section-heading {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.75rem, 3vw, 2.45rem);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.pink-dose-section-link {
+  border-bottom: 1px solid #bc8992;
+  padding-bottom: 0.25rem;
+  color: #302326;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

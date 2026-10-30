@@ -13,7 +13,6 @@ import Footer from "./components/home/Footer/Footer";
 import FooterBottom from "./components/home/Footer/FooterBottom";
 import Header from "./components/home/Header/Header";
 import HeaderBottom from "./components/home/Header/HeaderBottom";
-import SpecialCase from "./components/SpecialCase/SpecialCase";
 import About from "./pages/About/About";
 import SignIn from "./pages/Account/SignIn";
 import SignUp from "./pages/Account/SignUp";
@@ -31,7 +30,6 @@ const Layout = () => {
     <div>
       <Header />
       <HeaderBottom />
-      <SpecialCase />
       <ScrollRestoration />
       <Outlet />
       <Footer />
@@ -76,7 +74,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       <RouterProvider router={router} />
     </div>

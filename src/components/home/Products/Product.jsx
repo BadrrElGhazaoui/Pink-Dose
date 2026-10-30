@@ -1,34 +1,21 @@
 import React from "react";
-import { BsSuitHeartFill } from "react-icons/bs";
-import { GiReturnArrow } from "react-icons/gi";
-import { FaShoppingCart } from "react-icons/fa";
-import { MdOutlineLabelImportant } from "react-icons/md";
-import Image from "../../designLayouts/Image";
-import Badge from "./Badge";
-import { useNavigate } from "react-router-dom";
-import { useOrebiStore } from "../../../store/useOrebiStore";
+import { Link, useNavigate } from "react-router-dom";
+import { FiArrowUpRight, FiShoppingBag } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { useOrebiStore } from "../../../store/useOrebiStore";
+import { formatMad } from "../../../utils/currency";
 
 const Product = (props) => {
-  const addToCartStore = useOrebiStore((state) => state.addToCart);
-  const _id = props.productName;
-  const idString = (_id) => {
-    return String(_id).toLowerCase().split(" ").join("");
-  };
-  const rootId = idString(_id);
-
+  const addToCart = useOrebiStore((state) => state.addToCart);
   const navigate = useNavigate();
-  const productItem = props;
-  const handleProductDetails = () => {
-    navigate(`/product/${rootId}`, {
-      state: {
-        item: productItem,
-      },
-    });
+
+  const openProduct = () => {
+    navigate(`/product/${props._id}`, { state: { item: props } });
   };
 
-  const handleAddToCart = () => {
-    addToCartStore({
+  const handleAddToBag = (event) => {
+    event.stopPropagation();
+    addToCart({
       _id: props._id,
       productName: props.productName,
       quantity: 1,
@@ -36,74 +23,68 @@ const Product = (props) => {
       badge: props.badge,
       price: props.price,
       color: props.color,
+      cat: props.cat,
+      brand: props.brand,
     });
-    toast.success(`${props.productName} added to cart!`, {
-      icon: "🛒",
-    });
+    toast.success(`${props.productName} added to your bag.`);
   };
 
   return (
-    <div className="w-full relative group">
-      <div className="max-w-80 max-h-80 relative overflow-y-hidden rounded-t-xl border border-gray-200 border-b-0 bg-gray-50">
-        <div>
-          <Image className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" imgSrc={props.img} />
+    <article className="group min-w-0">
+      <button
+        type="button"
+        onClick={openProduct}
+        className="relative block aspect-[4/5] w-full overflow-hidden bg-[#f5f0ec] text-left"
+        aria-label={`View ${props.productName}`}
+      >
+        <img
+          src={props.img}
+          alt={props.imageAlt || props.productName}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.035]"
+        />
+        {props.badge && (
+          <span className="absolute left-3 top-3 bg-white/90 px-2.5 py-1 text-[0.56rem] font-semibold uppercase tracking-[0.13em] text-[#72575c]">
+            The edit
+          </span>
+        )}
+        <span className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-lg text-[#302326] shadow-sm transition-colors group-hover:bg-[#302326] group-hover:text-white">
+          <FiArrowUpRight />
+        </span>
+      </button>
+      <div className="pt-3">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="text-[0.58rem] font-medium uppercase tracking-[0.12em] text-[#9b8585]">
+              {props.brand || props.cat}
+            </p>
+            <Link
+              to={`/product/${props._id}`}
+              state={{ item: props }}
+              className="mt-1 block truncate text-sm font-medium text-[#302326] hover:text-[#a76e79]"
+            >
+              {props.productName}
+            </Link>
+          </div>
+          <span className="shrink-0 pt-3 text-xs font-semibold text-[#302326]">
+            {formatMad(props.price)}
+          </span>
         </div>
-        <div className="absolute top-4 left-4">
-          {props.badge && <Badge text="New" />}
-        </div>
-        <div className="w-full h-32 absolute bg-white/95 backdrop-blur-xs -bottom-[130px] group-hover:bottom-0 transition-all duration-300 shadow-lg">
-          <ul className="w-full h-full flex flex-col items-end justify-center gap-2 font-titleFont px-4">
-            <li
-              onClick={() => toast.info("Product comparison feature coming soon!")}
-              className="text-secondary hover:text-primeColor text-xs font-semibold border-b-[1px] border-b-gray-100 flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-200 w-full"
-            >
-              Compare
-              <span>
-                <GiReturnArrow />
-              </span>
-            </li>
-            <li
-              onClick={handleAddToCart}
-              className="text-secondary hover:text-primeColor text-xs font-semibold border-b-[1px] border-b-gray-100 flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-200 w-full"
-            >
-              Add to Cart
-              <span>
-                <FaShoppingCart />
-              </span>
-            </li>
-            <li
-              onClick={handleProductDetails}
-              className="text-secondary hover:text-primeColor text-xs font-semibold border-b-[1px] border-b-gray-100 flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-200 w-full"
-            >
-              View Details
-              <span className="text-sm">
-                <MdOutlineLabelImportant />
-              </span>
-            </li>
-            <li
-              onClick={() => toast.success(`${props.productName} added to wishlist!`, { icon: "❤️" })}
-              className="text-secondary hover:text-primeColor text-xs font-semibold flex items-center justify-end gap-2 hover:cursor-pointer pb-1 duration-200 w-full"
-            >
-              Add to Wish List
-              <span>
-                <BsSuitHeartFill className="text-red-400" />
-              </span>
-            </li>
-          </ul>
+        <div className="mt-3 flex items-center justify-between border-t border-[#eee5e2] pt-2.5">
+          <span className="text-[0.65rem] text-[#887a79]">
+            {props.cat}
+          </span>
+          <button
+            type="button"
+            onClick={handleAddToBag}
+            className="inline-flex items-center gap-1.5 text-[0.63rem] font-semibold uppercase tracking-[0.08em] text-[#a76e79] transition-colors hover:text-[#302326]"
+          >
+            <FiShoppingBag />
+            Add to bag
+          </button>
         </div>
       </div>
-      <div className="max-w-80 py-4 flex flex-col gap-1 border border-gray-200 border-t-0 px-4 rounded-b-xl bg-white">
-        <div className="flex items-center justify-between font-titleFont">
-          <h2 className="text-base text-primeColor font-bold truncate pr-2">
-            {props.productName}
-          </h2>
-          <p className="text-primeColor font-bold text-sm">${props.price}</p>
-        </div>
-        <div>
-          <p className="text-secondary text-xs">{props.color}</p>
-        </div>
-      </div>
-    </div>
+    </article>
   );
 };
 

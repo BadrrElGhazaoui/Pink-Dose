@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
-import { FiMail, FiPhone, FiMapPin, FiClock, FiSend } from "react-icons/fi";
+import { FiHeart, FiMapPin, FiPackage, FiStar, FiSend } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 const Contact = () => {
@@ -41,50 +41,47 @@ const Contact = () => {
 
     if (valid) {
       setSuccessMsg(
-        `Thank you, ${clientName}! Your message has been received. Our concierge team will reply to ${email} within 24 hours.`
+        `Thanks for writing, ${clientName}. This contact-form preview does not send messages yet. Pink Dose needs to add an email or WhatsApp contact channel before customers can reach the shop here.`
       );
-      setClientName("");
-      setEmail("");
-      setMessages("");
     }
   };
 
   return (
     <div className="max-w-container mx-auto px-4 pb-20">
-      <Breadcrumbs title="Contact Support" />
+      <Breadcrumbs title="Say hello to Pink Dose" />
 
       <div className="flex flex-col lg:flex-row gap-12 items-start">
         {/* Contact Details Card */}
         <div className="w-full lg:w-5/12 bg-primeColor text-white p-8 md:p-10 rounded-2xl shadow-xl flex flex-col justify-between">
           <div>
-            <span className="text-xs uppercase tracking-widest text-gray-300 font-bold bg-white/10 px-3 py-1 rounded-full">
-              Get In Touch
+            <span className="text-xs uppercase tracking-widest text-[#f0c7ca] font-bold bg-white/10 px-3 py-1 rounded-full">
+              A note to Pink Dose
             </span>
             <h2 className="text-3xl font-bold font-titleFont mt-4 mb-4">
-              We'd Love to Hear From You
+              Let’s talk beauty
             </h2>
             <p className="text-gray-300 text-sm mb-8 leading-relaxed">
-              Have a question about an order, styling recommendation, or partnership? Reach out to our dedicated support team anytime.
+              Looking for a particular Sephora find, or have a question about Pink Dose? Tell us what you’re looking for.
             </p>
 
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl text-amber-400">
-                  <FiMail />
+                  <FiHeart />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-gray-300 uppercase">Concierge Email</h4>
-                  <p className="text-sm font-semibold">support@orebishopping.com</p>
+                  <h4 className="text-xs font-bold text-gray-300 uppercase">Beauty questions</h4>
+                  <p className="text-sm font-semibold">We’re happy to help you find your next favourite.</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl text-amber-400">
-                  <FiPhone />
+                  <FiStar />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-gray-300 uppercase">Phone & WhatsApp</h4>
-                  <p className="text-sm font-semibold">+1 (800) 555-OREBI (6732)</p>
+                  <h4 className="text-xs font-bold text-gray-300 uppercase">Authentic Sephora beauty</h4>
+                  <p className="text-sm font-semibold">Original finds brought from France.</p>
                 </div>
               </div>
 
@@ -93,25 +90,25 @@ const Contact = () => {
                   <FiMapPin />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-gray-300 uppercase">Global Headquarters</h4>
-                  <p className="text-sm font-semibold">5th Avenue, Fashion District, New York, NY</p>
+                  <h4 className="text-xs font-bold text-gray-300 uppercase">Made for Morocco</h4>
+                  <p className="text-sm font-semibold">A little French beauty, closer to home.</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl text-amber-400">
-                  <FiClock />
+                  <FiPackage />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-gray-300 uppercase">Concierge Hours</h4>
-                  <p className="text-sm font-semibold">24 Hours / 7 Days a Week</p>
+                  <h4 className="text-xs font-bold text-gray-300 uppercase">Your wish list</h4>
+                  <p className="text-sm font-semibold">Let us know what you’d love to discover.</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="pt-8 border-t border-gray-700 mt-8 text-xs text-gray-400">
-            Response guaranteed within 24 hours.
+            We look forward to hearing from you.
           </div>
         </div>
 
@@ -126,24 +123,24 @@ const Contact = () => {
               <div className="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                 ✓
               </div>
-              <h3 className="text-2xl font-bold font-titleFont text-primeColor mb-2">Message Sent!</h3>
+              <h3 className="text-2xl font-bold font-titleFont text-primeColor mb-2">Your note is ready</h3>
               <p className="text-sm text-secondary max-w-md mx-auto leading-relaxed">{successMsg}</p>
               <button
                 type="button"
                 onClick={() => setSuccessMsg("")}
                 className="mt-6 px-6 py-2.5 bg-primeColor text-white font-semibold text-sm rounded-lg hover:bg-black transition-colors"
               >
-                Send Another Message
+                Write another note
               </button>
             </motion.div>
           ) : (
             <form onSubmit={handlePost} className="space-y-6">
               <div>
                 <h2 className="text-2xl font-bold font-titleFont text-primeColor mb-1">
-                  Send Us a Message
+                Tell us what you’re looking for
                 </h2>
                 <p className="text-xs text-secondary mb-6">
-                  Fill in the details below and we will get back to you promptly.
+                  This preview form does not send messages yet. Your note will be ready to share once Pink Dose adds a contact channel.
                 </p>
               </div>
 
@@ -155,7 +152,7 @@ const Contact = () => {
                   type="text"
                   value={clientName}
                   onChange={(e) => { setClientName(e.target.value); setErrClientName(""); }}
-                  placeholder="John Doe"
+                  placeholder="Your name"
                   className="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm text-primeColor outline-none focus:border-primeColor shadow-xs"
                 />
                 {errClientName && <p className="text-xs text-red-500 font-semibold mt-1">{errClientName}</p>}
@@ -169,7 +166,7 @@ const Contact = () => {
                   type="email"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setErrEmail(""); }}
-                  placeholder="john@example.com"
+                  placeholder="you@example.com"
                   className="w-full h-11 border border-gray-200 rounded-lg px-4 text-sm text-primeColor outline-none focus:border-primeColor shadow-xs"
                 />
                 {errEmail && <p className="text-xs text-red-500 font-semibold mt-1">{errEmail}</p>}
@@ -183,7 +180,7 @@ const Contact = () => {
                   rows={5}
                   value={messages}
                   onChange={(e) => { setMessages(e.target.value); setErrMessages(""); }}
-                  placeholder="How can we assist you today?"
+                  placeholder="What beauty find are you looking for?"
                   className="w-full border border-gray-200 rounded-lg p-4 text-sm text-primeColor outline-none focus:border-primeColor shadow-xs resize-none"
                 />
                 {errMessages && <p className="text-xs text-red-500 font-semibold mt-1">{errMessages}</p>}
@@ -193,7 +190,7 @@ const Contact = () => {
                 type="submit"
                 className="w-full h-12 bg-primeColor text-white font-bold font-titleFont text-sm rounded-xl hover:bg-black transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
               >
-                <FiSend /> Submit Inquiry
+                <FiSend /> Preview your note
               </button>
             </form>
           )}

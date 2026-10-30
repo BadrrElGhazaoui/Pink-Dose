@@ -1,127 +1,129 @@
 import React, { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { MdClose } from "react-icons/md";
-import { HiMenuAlt2 } from "react-icons/hi";
-import { motion, AnimatePresence } from "framer-motion";
-import { logo, logoLight } from "../../../assets/images";
-import Image from "../../designLayouts/Image";
+import { Link, NavLink } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { FiInstagram, FiMenu, FiX } from "react-icons/fi";
 import { navBarList } from "../../../constants";
 
+const Brand = ({ onClick }) => (
+  <Link
+    to="/"
+    onClick={onClick}
+    className="flex flex-col items-center text-[#302326]"
+    aria-label="Pink Dose home"
+  >
+    <span className="pink-dose-wordmark">PINK DOSE</span>
+    <span className="mt-1 text-[0.53rem] font-medium uppercase tracking-[0.29em] text-[#92777a]">
+      Your beauty era starts here
+    </span>
+  </Link>
+);
+
 const Header = () => {
-  const [sidenav, setSidenav] = useState(false);
-  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="w-full h-20 bg-white/90 sticky top-0 z-50 border-b border-gray-200 backdrop-blur-md transition-all">
-      <div className="h-full px-4 max-w-container mx-auto flex items-center justify-between">
-        
-        {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <Image className="w-20 object-contain transition-transform group-hover:scale-105" imgSrc={logo} alt="Orebi Logo" />
-        </Link>
+    <>
+      <div className="bg-[#f3dfe0] px-4 py-2 text-center text-[0.63rem] font-medium tracking-[0.12em] text-[#684d52]">
+        AUTHENTIC SEPHORA BEAUTY · SELECTED IN FRANCE, FOR MOROCCO
+      </div>
+      <header className="sticky top-0 z-50 border-b border-[#eee5e2] bg-[#fffdfb]/95 backdrop-blur-md">
+        <div className="mx-auto flex h-[82px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
+          <div className="w-10 md:hidden">
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              className="flex h-10 w-10 items-center justify-center text-xl text-[#302326]"
+              aria-label="Open navigation menu"
+              aria-expanded={menuOpen}
+            >
+              <FiMenu />
+            </button>
+          </div>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1">
-          {navBarList.map(({ _id, title, link }) => {
-            const isActive = location.pathname === link;
-            return (
+          <Brand />
+
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+            {navBarList.map(({ _id, title, link }) => (
               <NavLink
                 key={_id}
                 to={link}
+                end={link === "/"}
                 className={({ isActive }) =>
-                  `px-5 py-2 text-sm font-titleFont transition-all rounded-full cursor-pointer relative ${
+                  `relative py-2 text-[0.7rem] font-medium uppercase tracking-[0.12em] transition-colors ${
                     isActive
-                      ? "font-bold text-primeColor bg-gray-100"
-                      : "font-medium text-secondary hover:text-primeColor hover:bg-gray-50"
+                      ? "text-[#a76e79] after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-[#bc8992]"
+                      : "text-[#65575a] hover:text-[#a76e79]"
                   }`
                 }
               >
                 {title}
-                {isActive && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="absolute bottom-0 left-4 right-4 h-0.5 bg-primeColor rounded-full"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
               </NavLink>
-            );
-          })}
-        </nav>
+            ))}
+          </nav>
 
-        {/* Mobile Hamburger Toggle Button */}
-        <button
-          type="button"
-          onClick={() => setSidenav(true)}
-          className="md:hidden p-2 text-primeColor hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
-          aria-label="Open Mobile Menu"
-        >
-          <HiMenuAlt2 className="w-7 h-7" />
-        </button>
+          <Link
+            to="/contact"
+            className="hidden items-center gap-2 text-xs font-medium text-[#65575a] transition-colors hover:text-[#a76e79] sm:flex"
+          >
+            <FiInstagram className="text-base" />
+            <span>Say hello</span>
+          </Link>
+          <span className="w-10 md:hidden" aria-hidden="true" />
+        </div>
 
-        {/* Mobile Slide-in Drawer */}
         <AnimatePresence>
-          {sidenav && (
-            <div className="fixed inset-0 z-50 flex">
-              {/* Overlay Backdroop */}
-              <motion.div
+          {menuOpen && (
+            <div className="fixed inset-0 z-[60] flex md:hidden">
+              <motion.button
+                type="button"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                onClick={() => setSidenav(false)}
-                className="fixed inset-0 bg-black/60 backdrop-blur-xs"
+                onClick={() => setMenuOpen(false)}
+                className="absolute inset-0 bg-[#302326]/40"
+                aria-label="Close navigation menu"
               />
-
-              {/* Slide Drawer Content */}
-              <motion.div
+              <motion.aside
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="relative w-4/5 max-w-sm h-full bg-primeColor text-white p-6 shadow-2xl z-10 flex flex-col justify-between"
+                transition={{ type: "tween", duration: 0.22 }}
+                className="relative flex h-full w-[min(84vw,370px)] flex-col bg-[#fffdfb] p-6 shadow-2xl"
+                aria-label="Mobile navigation"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-700">
-                    <img className="w-28" src={logoLight} alt="Orebi Light Logo" />
-                    <button
-                      type="button"
-                      onClick={() => setSidenav(false)}
-                      className="p-1 text-gray-300 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+                <div className="flex items-center justify-between border-b border-[#eee5e2] pb-6">
+                  <Brand onClick={() => setMenuOpen(false)} />
+                  <button
+                    type="button"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex h-10 w-10 items-center justify-center text-xl"
+                    aria-label="Close navigation menu"
+                  >
+                    <FiX />
+                  </button>
+                </div>
+                <nav className="mt-6 flex flex-col" aria-label="Mobile navigation links">
+                  {navBarList.map(({ _id, title, link }) => (
+                    <NavLink
+                      key={_id}
+                      to={link}
+                      end={link === "/"}
+                      onClick={() => setMenuOpen(false)}
+                      className="border-b border-[#eee5e2] py-4 font-titleFont text-xl text-[#302326]"
                     >
-                      <MdClose className="text-2xl" />
-                    </button>
-                  </div>
-
-                  <ul className="flex flex-col gap-3">
-                    {navBarList.map(({ _id, title, link }) => (
-                      <li key={_id}>
-                        <NavLink
-                          to={link}
-                          onClick={() => setSidenav(false)}
-                          className={({ isActive }) =>
-                            `block px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
-                              isActive
-                                ? "bg-white/15 text-white"
-                                : "text-gray-300 hover:text-white hover:bg-white/5"
-                            }`
-                          }
-                        >
-                          {title}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="pt-6 border-t border-gray-700 text-xs text-gray-400">
-                  <p>© 2026 Orebi Shopping Inc. All rights reserved.</p>
-                </div>
-              </motion.div>
+                      {title}
+                    </NavLink>
+                  ))}
+                </nav>
+                <p className="mt-auto pt-8 text-xs leading-6 text-[#786b6b]">
+                  A little French beauty, a little more you.
+                </p>
+              </motion.aside>
             </div>
           )}
         </AnimatePresence>
-      </div>
-    </header>
+      </header>
+    </>
   );
 };
 

@@ -1,58 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
 import ProductInfo from "../../components/pageProps/productDetails/ProductInfo";
-import ProductsOnSale from "../../components/pageProps/productDetails/ProductsOnSale";
 import { paginationItems } from "../../constants";
 
 const ProductDetails = () => {
   const location = useLocation();
-  const { title } = useParams();
-  const [productInfo, setProductInfo] = useState(null);
-
-  useEffect(() => {
-    if (location.state?.item) {
-      setProductInfo(location.state.item);
-    } else {
-      // Fallback lookup by param or default to first product
-      const found = paginationItems.find(
-        (p) => String(p.productName).toLowerCase().split(" ").join("") === title
-      );
-      setProductInfo(found || paginationItems[0]);
-    }
-  }, [location, title]);
+  const { _id } = useParams();
+  const productInfo =
+    location.state?.item?._id === Number(_id)
+      ? location.state.item
+      : paginationItems.find((product) => String(product._id) === _id);
 
   if (!productInfo) {
     return (
-      <div className="max-w-container mx-auto px-4 py-20 text-center text-primeColor font-semibold">
-        Loading product details...
+      <div className="mx-auto max-w-[1440px] px-4 py-24 text-center sm:px-6 lg:px-10">
+        <h1 className="font-titleFont text-3xl text-[#302326]">
+          This beauty find has moved on
+        </h1>
+        <Link to="/shop" className="pink-dose-section-link mt-5 inline-flex">
+          Explore the beauty edit
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="w-full mx-auto border-b border-gray-200">
-      <div className="max-w-container mx-auto px-4 pb-20">
+    <div className="mx-auto w-full max-w-[1440px] px-4 pb-20 sm:px-6 lg:px-10">
         <Breadcrumbs title={productInfo.productName} />
         
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-8 bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
-          <div className="xl:col-span-1 border-r border-gray-100 pr-4 hidden xl:block">
-            <ProductsOnSale />
-          </div>
-
-          <div className="xl:col-span-2 flex items-center justify-center bg-gray-50 rounded-xl p-6 border border-gray-100">
+        <div className="grid grid-cols-1 gap-8 border-t border-[#eee5e2] pt-8 md:grid-cols-2 lg:gap-16">
+          <div className="flex aspect-[4/4.5] items-center justify-center overflow-hidden bg-[#f7f0ed]">
             <img
-              className="max-h-96 object-contain rounded-lg shadow-xs hover:scale-105 transition-transform duration-500"
+              className="h-full w-full object-cover"
               src={productInfo.img}
               alt={productInfo.productName}
             />
           </div>
 
-          <div className="md:col-span-2 xl:col-span-3 flex flex-col justify-center">
+          <div className="flex flex-col justify-center py-4">
             <ProductInfo productInfo={productInfo} />
           </div>
         </div>
-      </div>
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { logoLight } from "../../assets/images";
 import { useOrebiStore } from "../../store/useOrebiStore";
 
 const SignIn = () => {
@@ -49,7 +48,7 @@ const SignIn = () => {
         email: email,
       });
 
-      setSuccessMsg(`Welcome back, ${formattedName}! Redirecting to shop...`);
+      setSuccessMsg(`Welcome to Pink Dose, ${formattedName}. Your local demo profile is ready.`);
       setTimeout(() => {
         navigate("/shop");
       }, 1500);
@@ -64,44 +63,44 @@ const SignIn = () => {
         <div className="w-full md:w-1/2 bg-primeColor text-white p-8 md:p-12 flex flex-col justify-between">
           <div>
             <Link to="/">
-              <img src={logoLight} alt="Orebi Logo" className="w-28 mb-8" />
+              <span className="pink-dose-wordmark mb-8 inline-block text-white">PINK DOSE</span>
             </Link>
             <h2 className="font-titleFont text-2xl md:text-3xl font-bold mb-3 leading-snug">
-              Welcome Back to Orebi Shopping
+              Welcome back to Pink Dose
             </h2>
             <p className="text-gray-300 text-sm mb-8 leading-relaxed">
-              Sign in to manage your orders, access exclusive VIP discounts, and enjoy seamless one-click checkout.
+              Sign in to keep your beauty bag and profile together on this device.
             </p>
 
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <BsCheckCircleFill className="text-green-400 mt-1 flex-shrink-0" />
                 <p className="text-xs text-gray-300">
-                  <strong className="text-white block font-titleFont">Track Orders Live</strong>
-                  Real-time status updates on all your pending deliveries.
+                  <strong className="text-white block font-titleFont">Your beauty bag</strong>
+                  Keep your beauty finds together as you browse.
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <BsCheckCircleFill className="text-green-400 mt-1 flex-shrink-0" />
                 <p className="text-xs text-gray-300">
-                  <strong className="text-white block font-titleFont">Member-Only Flash Offers</strong>
-                  Unlock up to 40% discount on seasonal tech and style drops.
+                  <strong className="text-white block font-titleFont">From France to Morocco</strong>
+                  Discover authentic Sephora beauty with Pink Dose.
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <BsCheckCircleFill className="text-green-400 mt-1 flex-shrink-0" />
                 <p className="text-xs text-gray-300">
-                  <strong className="text-white block font-titleFont">Secure & Encrypted</strong>
-                  Your personal profile and payment details are protected with 256-bit encryption.
+                  <strong className="text-white block font-titleFont">A local preview profile</strong>
+                  Account details are saved in this browser only.
                 </p>
               </div>
             </div>
           </div>
 
           <div className="pt-6 border-t border-gray-700 flex items-center justify-between text-xs text-gray-400">
-            <span>© 2026 OREBI</span>
+            <span>© {new Date().getFullYear()} PINK DOSE</span>
             <div className="flex gap-4">
               <Link to="/about" className="hover:text-white transition-colors">About</Link>
               <Link to="/contact" className="hover:text-white transition-colors">Help</Link>
@@ -116,7 +115,7 @@ const SignIn = () => {
               <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                 ✓
               </div>
-              <h3 className="text-xl font-bold font-titleFont text-primeColor mb-2">Signed In Successfully</h3>
+              <h3 className="text-xl font-bold font-titleFont text-primeColor mb-2">Welcome to Pink Dose</h3>
               <p className="text-sm text-secondary mb-6">{successMsg}</p>
               <Link to="/shop">
                 <button className="px-6 py-2.5 bg-primeColor text-white rounded-lg text-sm font-semibold hover:bg-black transition-colors">

@@ -1,287 +1,121 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import {
+  FiArrowLeft,
+  FiArrowRight,
+  FiLock,
+  FiShoppingBag,
+  FiTrash2,
+} from "react-icons/fi";
 import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
 import { useOrebiStore } from "../../store/useOrebiStore";
-import { emptyCart } from "../../assets/images/index";
+import { formatMad } from "../../utils/currency";
 import ItemCard from "./ItemCard";
-import { FiTrash2, FiTag, FiTruck, FiShield, FiLock, FiCheckCircle } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 const Cart = () => {
   const products = useOrebiStore((state) => state.products);
   const user = useOrebiStore((state) => state.user);
-  const resetCartStore = useOrebiStore((state) => state.resetCart);
+  const resetCart = useOrebiStore((state) => state.resetCart);
   const navigate = useNavigate();
 
-  const [totalAmt, setTotalAmt] = useState(0);
-  const [shippingCharge, setShippingCharge] = useState(0);
-  const [couponInput, setCouponInput] = useState("");
-  const [discountPercent, setDiscountPercent] = useState(0);
-  const [couponMsg, setCouponMsg] = useState({ text: "", error: false });
+  const subtotal = products.reduce(
+    (total, product) =>
+      total + (Number(product.price) || 0) * (product.quantity || 1),
+    0
+  );
 
-  // Calculate subtotal
-  useEffect(() => {
-    let sum = 0;
-    products.forEach((item) => {
-      sum += (parseFloat(item.price) || 0) * (item.quantity || 1);
-    });
-    setTotalAmt(sum);
-  }, [products]);
-
-  // Shipping calculation (Free over $300)
-  const freeShippingThreshold = 300;
-  useEffect(() => {
-    if (totalAmt === 0) {
-      setShippingCharge(0);
-    } else if (totalAmt >= freeShippingThreshold) {
-      setShippingCharge(0);
-    } else if (totalAmt <= 150) {
-      setShippingCharge(25);
-    } else {
-      setShippingCharge(15);
-    }
-  }, [totalAmt]);
-
-  const handleApplyCoupon = (e) => {
-    e.preventDefault();
-    const code = couponInput.trim().toUpperCase();
-    if (!code) {
-      toast.warning("Please enter a valid coupon code.");
-      setCouponMsg({ text: "Please enter a coupon code.", error: true });
+  const handleCheckout = () => {
+    if (!user) {
+      toast.info("Sign in to continue.");
+      navigate("/signin", { state: { from: "/cart" } });
       return;
     }
 
-    if (code === "OREBI20" || code === "SAVE20") {
-      setDiscountPercent(20);
-      setCouponMsg({ text: "Coupon OREBI20 applied! (20% Off)", error: false });
-      toast.success("Coupon OREBI20 applied! You saved 20% 🎉");
-    } else if (code === "WELCOME10") {
-      setDiscountPercent(10);
-      setCouponMsg({ text: "Coupon WELCOME10 applied! (10% Off)", error: false });
-      toast.success("Coupon WELCOME10 applied! You saved 10% 🎉");
-    } else {
-      setDiscountPercent(0);
-      setCouponMsg({ text: "Invalid coupon code. Try 'OREBI20' or 'WELCOME10'.", error: true });
-      toast.error("Invalid coupon code. Try 'OREBI20' or 'WELCOME10'.");
-    }
+    navigate("/paymentgateway");
   };
-
-  const handleResetCart = () => {
-    resetCartStore();
-    toast.info("Shopping cart cleared.", { icon: "🧹" });
-  };
-
-  const handleCheckoutClick = () => {
-    if (!user) {
-      toast.warning("Please sign in or create an account to proceed to checkout!", {
-        icon: "🔒",
-      });
-      navigate("/signin", { state: { from: "/cart" } });
-    } else {
-      navigate("/paymentgateway");
-    }
-  };
-
-  const discountAmount = (totalAmt * discountPercent) / 100;
-  const grandTotal = Math.max(0, totalAmt - discountAmount + shippingCharge);
-  const freeShippingProgress = Math.min(100, (totalAmt / freeShippingThreshold) * 100);
 
   return (
-    <div className="max-w-container mx-auto px-4 pb-20">
-      <Breadcrumbs title="Shopping Cart" />
+    <main className="mx-auto max-w-[1440px] px-4 pb-20 sm:px-6 lg:px-10">
+      <Breadcrumbs title="Your beauty bag" />
 
-      {products.length > 0 ? (
-        <div className="flex flex-col lg:flex-row gap-10 items-start">
-          
-          {/* Main Cart Items Segment */}
-          <div className="flex-1 w-full">
-            {/* Free Shipping Progress Indicator */}
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6 shadow-xs">
-              <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-primeColor mb-2">
-                <span className="flex items-center gap-2">
-                  <FiTruck className="text-base text-primeColor" />
-                  {totalAmt >= freeShippingThreshold ? (
-                    <span className="text-green-600 font-bold">You unlocked FREE Express Shipping! 🎉</span>
-                  ) : (
-                    <span>
-                      Add <strong className="text-primeColor">${(freeShippingThreshold - totalAmt).toFixed(2)}</strong> more to get FREE Express Shipping
-                    </span>
-                  )}
-                </span>
-                <span>{freeShippingProgress.toFixed(0)}%</span>
-              </div>
-              <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                <div
-                  className="bg-primeColor h-full transition-all duration-500 rounded-full"
-                  style={{ width: `${freeShippingProgress}%` }}
-                />
-              </div>
+      {products.length ? (
+        <div className="grid items-start gap-8 border-t border-[#eee5e2] pt-8 lg:grid-cols-[1fr_350px]">
+          <section aria-label="Items in your bag">
+            <div className="mb-4 flex items-center justify-between border-b border-[#eee5e2] pb-3 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[#897d7b]">
+              <span>Your finds ({products.length})</span>
+              <button
+                type="button"
+                onClick={() => {
+                  resetCart();
+                  toast.info("Your beauty bag is clear.");
+                }}
+                className="inline-flex items-center gap-1.5 normal-case tracking-normal transition-colors hover:text-[#a76e79]"
+              >
+                <FiTrash2 />
+                Clear bag
+              </button>
             </div>
-
-            {/* Cart Header */}
-            <div className="hidden sm:grid grid-cols-5 bg-gray-100 border border-gray-200 rounded-xl p-4 text-xs font-bold uppercase tracking-wider text-secondary mb-4">
-              <span className="col-span-2">Product</span>
-              <span className="text-center">Price</span>
-              <span className="text-center">Quantity</span>
-              <span className="text-right">Subtotal</span>
-            </div>
-
-            {/* List of Cart Items */}
-            <div className="flex flex-col gap-4 mb-6">
+            <div className="flex flex-col gap-3">
               {products.map((item) => (
                 <ItemCard key={item._id} item={item} />
               ))}
             </div>
+            <Link
+              to="/shop"
+              className="mt-6 inline-flex items-center gap-2 text-xs font-medium text-[#786b6b] hover:text-[#a76e79]"
+            >
+              <FiArrowLeft />
+              Continue discovering
+            </Link>
+          </section>
 
-            {/* Action Bar */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-200">
-              <Link to="/shop">
-                <button type="button" className="px-6 py-2.5 border border-gray-300 rounded-lg text-sm font-semibold text-primeColor hover:bg-gray-50 transition-colors cursor-pointer">
-                  ← Continue Shopping
-                </button>
-              </Link>
-              <button
-                type="button"
-                onClick={handleResetCart}
-                className="px-6 py-2.5 bg-red-50 text-red-600 border border-red-200 rounded-lg text-sm font-semibold hover:bg-red-100 transition-colors flex items-center gap-2 cursor-pointer"
-              >
-                <FiTrash2 /> Empty Cart
-              </button>
-            </div>
-          </div>
-
-          {/* Order Summary Sidebar */}
-          <div className="w-full lg:w-96 flex-shrink-0 bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
-            <h2 className="text-xl font-bold font-titleFont text-primeColor mb-6 pb-3 border-b border-gray-200">
-              Order Summary
-            </h2>
-
-            {/* Auth Requirements Notice */}
-            {!user ? (
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3.5 mb-6 flex items-start gap-3">
-                <FiLock className="text-amber-600 text-lg flex-shrink-0 mt-0.5" />
-                <div className="text-xs text-amber-900">
-                  <strong className="block font-bold mb-0.5">Sign In Required</strong>
-                  Please sign in to proceed with checkout.
-                </div>
-              </div>
-            ) : (
-              <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-6 flex items-center gap-2 text-xs text-green-800 font-semibold">
-                <FiCheckCircle className="text-green-600 text-base" />
-                <span>Signed in as <strong>{user.name}</strong></span>
-              </div>
-            )}
-
-            {/* Coupon Code Section */}
-            <form onSubmit={handleApplyCoupon} className="mb-6">
-              <label htmlFor="coupon" className="block text-xs font-bold text-secondary uppercase mb-2">
-                Have a Promo Code?
-              </label>
-              <div className="flex items-center gap-2">
-                <div className="relative flex-1">
-                  <input
-                    id="coupon"
-                    type="text"
-                    value={couponInput}
-                    onChange={(e) => setCouponInput(e.target.value)}
-                    placeholder="Try 'OREBI20'"
-                    className="w-full border border-gray-200 rounded-lg py-2 pl-8 pr-3 text-sm outline-none focus:border-primeColor uppercase"
-                  />
-                  <FiTag className="absolute left-2.5 top-3 text-gray-400 text-xs" />
-                </div>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-primeColor text-white text-xs font-semibold rounded-lg hover:bg-black transition-colors cursor-pointer"
-                >
-                  Apply
-                </button>
-              </div>
-              {couponMsg.text && (
-                <p className={`text-xs mt-2 font-medium ${couponMsg.error ? "text-red-500" : "text-green-600"}`}>
-                  {couponMsg.text}
-                </p>
-              )}
-            </form>
-
-            {/* Pricing Breakdown */}
-            <div className="flex flex-col gap-3 text-sm border-t border-b border-gray-200 py-4 mb-6">
-              <div className="flex justify-between text-secondary">
-                <span>Subtotal ({products.length} items)</span>
-                <span className="font-semibold text-primeColor">${totalAmt.toFixed(2)}</span>
-              </div>
-
-              {discountAmount > 0 && (
-                <div className="flex justify-between text-green-600 font-medium">
-                  <span>Discount ({discountPercent}%)</span>
-                  <span>-${discountAmount.toFixed(2)}</span>
-                </div>
-              )}
-
-              <div className="flex justify-between text-secondary">
-                <span>Shipping Estimate</span>
-                <span className="font-semibold text-primeColor">
-                  {shippingCharge === 0 ? <strong className="text-green-600">FREE</strong> : `$${shippingCharge.toFixed(2)}`}
-                </span>
-              </div>
-            </div>
-
-            {/* Grand Total */}
-            <div className="flex justify-between items-center mb-6">
-              <span className="text-lg font-bold font-titleFont text-primeColor">Total</span>
-              <span className="text-2xl font-bold font-titleFont text-primeColor">
-                ${grandTotal.toFixed(2)}
+          <aside className="border border-[#eee5e2] bg-[#fffdfb] p-5 sm:p-6">
+            <p className="pink-dose-kicker">A little more you</p>
+            <h2 className="mt-2 font-titleFont text-2xl">Order summary</h2>
+            <div className="mt-6 flex items-center justify-between border-y border-[#eee5e2] py-4 text-sm">
+              <span className="text-[#786b6b]">Subtotal</span>
+              <span className="font-semibold text-[#302326]">
+                {formatMad(subtotal)}
               </span>
             </div>
-
-            {/* Checkout Button with Auth Gate */}
-            {user ? (
-              <button
-                type="button"
-                onClick={handleCheckoutClick}
-                className="w-full py-3.5 bg-primeColor text-white font-bold font-titleFont text-center rounded-xl hover:bg-black transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
-              >
-                Proceed to Checkout →
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={handleCheckoutClick}
-                className="w-full py-3.5 bg-gray-200 text-gray-600 font-bold font-titleFont text-center rounded-xl hover:bg-primeColor hover:text-white transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <FiLock /> Sign In to Checkout
-              </button>
-            )}
-
-            <div className="mt-4 flex items-center justify-center gap-2 text-xs text-secondary">
-              <FiShield className="text-base text-green-600" />
-              <span>Guaranteed 256-Bit SSL Encrypted Checkout</span>
-            </div>
-          </div>
-
+            <p className="mt-4 text-xs leading-5 text-[#897d7b]">
+              Delivery and order details will be confirmed with Pink Dose
+              before your purchase is finalised.
+            </p>
+            <p className="mt-4 flex items-start gap-2 text-xs leading-5 text-[#786b6b]">
+              <FiLock className="mt-0.5 shrink-0 text-[#b87984]" />
+              No payment is taken until your order details are confirmed.
+            </p>
+            <button
+              type="button"
+              onClick={handleCheckout}
+              className="pink-dose-button mt-6 w-full"
+            >
+              Continue <FiArrowRight />
+            </button>
+          </aside>
         </div>
       ) : (
-        /* Empty Cart State */
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col items-center justify-center py-16 text-center"
+          className="flex flex-col items-center border-t border-[#eee5e2] py-20 text-center"
         >
-          <img className="w-64 mb-6" src={emptyCart} alt="Empty Cart" />
-          <h2 className="text-2xl font-bold font-titleFont text-primeColor mb-2">
-            Your Shopping Cart is Empty
+          <FiShoppingBag className="text-4xl text-[#bc8992]" />
+          <h2 className="mt-5 font-titleFont text-3xl text-[#302326]">
+            Your beauty bag is waiting
           </h2>
-          <p className="text-secondary text-sm max-w-md mb-6 leading-relaxed">
-            Looks like you haven't added anything to your cart yet. Explore our curated shop collection to discover trending products.
+          <p className="mt-3 max-w-md text-sm leading-6 text-[#786b6b]">
+            Discover something lovely from the Pink Dose edit.
           </p>
-          <Link to="/shop">
-            <button className="px-8 py-3.5 bg-primeColor text-white font-bold font-titleFont rounded-xl hover:bg-black transition-colors shadow-md">
-              Start Shopping Now
-            </button>
+          <Link to="/shop" className="pink-dose-button mt-7">
+            Explore the beauty edit <FiArrowRight />
           </Link>
         </motion.div>
       )}
-    </div>
+    </main>
   );
 };
 
