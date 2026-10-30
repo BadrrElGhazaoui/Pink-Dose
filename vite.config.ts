@@ -4,8 +4,8 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/Pink-Dose/',
+export default defineConfig(({ command }) => ({
+  base: command === "serve" ? "/" : "/Pink-Dose/",
   plugins: [react(), tailwindcss()],
   server: {
     port: 3000,
@@ -19,4 +19,4 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/setupTests.ts",
   },
-});
+}));
